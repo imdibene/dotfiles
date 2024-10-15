@@ -1,0 +1,2 @@
+command script import \"$( dirname -- "$( readlink -f -- "$0"; )"; )/llef.py\"";
+echo "settings set stop-disassembly-display never"

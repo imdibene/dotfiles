@@ -1,0 +1,12 @@
+[submodule "zsh/.config/zsh/plugins/zsh-syntax-highlighting"]
+	path = zsh/.config/zsh/plugins/zsh-syntax-highlighting
+	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
+[submodule "gdb/.config/gdb/plugins/pwndbg"]
+	path = gdb/.config/gdb/plugins/pwndbg
+	url = git@github.com:pwndbg/pwndbg.git
+[submodule "gdb/.config/gdb/plugins/gef"]
+	path = gdb/.config/gdb/plugins/gef
+	url = git@github.com:hugsy/gef.git
+[submodule "lldb/.config/lldb/plugins/llef"]
+	path = lldb/.config/lldb/plugins/llef
+	url = git@github.com:foundryzero/llef.git
