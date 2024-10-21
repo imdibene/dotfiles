@@ -26,28 +26,28 @@ function battery_meter::macos() {
 }
 
 function battery_meter::linux() {
-    # Check if the battery info is available
-    if [[ -f /sys/class/power_supply/BAT0/capacity ]]; then
-        # Get battery percentage and status (charging/discharging/fully charged)
-        battery_percentage=$(cat /sys/class/power_supply/BAT0/capacity)
-        battery_status=$(cat /sys/class/power_supply/BAT0/status)
+	# Check if the battery info is available
+	if [[ -f /sys/class/power_supply/BAT0/capacity ]]; then
+		# Get battery percentage and status (charging/discharging/fully charged)
+		battery_percentage=$(cat /sys/class/power_supply/BAT0/capacity)
+		battery_status=$(cat /sys/class/power_supply/BAT0/status)
 
-        # Choose a symbol based on the battery status
-        if [[ $battery_status == "Discharging" ]]; then
-            symbol="🔋"   # Battery is discharging
-        elif [[ $battery_status == "Charging" ]]; then
-            symbol="⚡️"  # Battery is charging
-        elif [[ $battery_status == "Full" ]]; then
-            symbol="🔌"  # Battery is fully charged
-        else
-            symbol="❓"   # Unknown state
-        fi
+		# Choose a symbol based on the battery status
+		if [[ $battery_status == "Discharging" ]]; then
+			symbol="🔋"   # Battery is discharging
+		elif [[ $battery_status == "Charging" ]]; then
+			symbol="⚡️"  # Battery is charging
+		elif [[ $battery_status == "Full" ]]; then
+			symbol="🔌"  # Battery is fully charged
+		else
+			symbol="❓"   # Unknown state
+		fi
 
-        # Display battery status with symbol
-        printf"%s " "$symbol $battery_percentage%"
-    else
-        echo "Battery information not available."
-    fi
+		# Display battery status with symbol
+		printf"%s " "$symbol $battery_percentage%"
+	else
+		echo "Battery information not available."
+	fi
 }
 
 function battery_meter() {
