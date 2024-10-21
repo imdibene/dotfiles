@@ -6,11 +6,11 @@ function battery_meter::macos() {
 	src=$(echo $power_info | grep "Now drawing from" | sed -n "s/.*'\\(.*\\)'.*/\\1/p")
 	percent=$(echo $power_info | grep -Eo '\d{1,3}%')
 	state=$(echo $power_info | grep -E '\d{1,3}%' | awk -F';' '{print $2}')
-	
+
 	# Get battery status from the system profiler
 	batt_info=$(system_profiler SPPowerDataType | sed -n '/Charge Information:/,/System Power Settings:/p' | sed '$d')
 	charging=$(echo "$batt_info" | grep "Charging:" | awk '{print $2}')
-	
+
 	# choose a symbol based on the battery status
 	if [[ $charging == "Yes" ]]; then
 		symbol="🔋⚡️"	# battery is charging

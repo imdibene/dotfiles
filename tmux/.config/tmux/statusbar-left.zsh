@@ -3,21 +3,21 @@
 function memory_usage::macos() {
 	# Get the PhysMem line
 	physmem=$(top -l 1 -s 0 | grep "PhysMem")
-	
+
 	# Extract used and unused memory values (in Gigabytes)
 	used_mem=$(echo "$physmem" | sed -n 's/.*PhysMem: \([0-9]*G\) used.*/\1/p')
 	unused_mem=$(echo "$physmem" | sed -n 's/.* \([0-9]*G\) unused.*/\1/p')
-	
+
 	# Convert the values from G to MB
 	used_mem_mb=$(( ${used_mem%G} * 1024 ))   # Remove the "G" and multiply by 1024 to get MB
 	unused_mem_mb=$(( ${unused_mem%G} * 1024 ))
-	
+
 	# Calculate the total memory in MB
 	total_mem_mb=$(( used_mem_mb + unused_mem_mb ))
-	
+
 	# Calculate the percentage of used memory
 	usage_percent=$(( used_mem_mb * 100 / total_mem_mb ))
-	
+
 	# Print the results
 	echo "MEM:$usage_percent%"
 }
@@ -25,14 +25,14 @@ function memory_usage::macos() {
 function memory_usage::linux() {
 	# Get memory information in megabytes
 	mem_info=$(free -m | grep Mem)
-	
+
 	# Extract total and used memory from the output
 	total_mem=$(echo "$mem_info" | awk '{print $2}')
 	used_mem=$(echo "$mem_info" | awk '{print $3}')
-	
+
 	# Calculate percentage of used memory
 	used_percentage=$(( (used_mem * 100) / total_mem ))
-	
+
 	# Display the result
 	echo "MEM:$used_percentage%"
 }
