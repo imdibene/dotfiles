@@ -84,10 +84,10 @@ zstyle ':vcs_info:git:*' formats '%F{153}%b%f'
 RPROMPT='%F{red}%*%f'
 case "$(uname -s)" in
 Darwin)
-	PROMPT='%(?.%F{green}●.%F{red}●) %f %F{blue}%n%f@%F{red}%m%f:%F{211}%~ %f[λ: ${vcs_info_msg_0_}] %# '
+	PROMPT='%(?.%F{green}✅.%F{red}❌) %f %F{blue}%n%f@%F{red}%m%f:%F{211}%~ %f[λ: ${vcs_info_msg_0_}] %# '
 	;;
 Linux)
-	PROMPT='%(?.%F{green}●.%F{red}●) %f🐧 %F{blue}%n%f@%F{red}%m%f:%F{211}%~ %f[λ: ${vcs_info_msg_0_}] %# '
+	PROMPT='%(?.%F{green}✅.%F{red}❌) %f🐧 %F{blue}%n%f@%F{red}%m%f:%F{211}%~ %f[λ: ${vcs_info_msg_0_}] %# '
 	;;
 *)
 	# Other OSes (e.g. FreeBSD, AIX, Solaris)
