@@ -46,6 +46,7 @@ alias gcp='git cherry-pick'
 alias gd='git diff'
 alias gds='git diff --staged'
 alias gdup='git diff @{upstream}'
+alias gfap='git fetch --all --prune'
 alias gpsho='git push origin'
 alias gpsh='git push'
 alias gpllo='git pull origin'
@@ -79,7 +80,7 @@ alias tmuxn='tmux new -s'
 alias tmuxk='tmux kill-session -t'
 alias tmuxl='tmux list-sessions'
 
-# OS specific Package Manager
+# OS specifics, e.g. Package Manager
 case "$(uname -s)" in
 Darwin)
 	# MacOS
@@ -91,6 +92,7 @@ Linux)
 	#alias pkmg='sudo apt'	# APT
 	alias pkmg='sudo nala'	# nala apt wrapper
 	alias pkmgdg='pm update && pm upgrade -y'
+	alias bat='batcat'
 	;;
 *)
 	# Other OSes (e.g. FreeBSD, AIX, Solaris)

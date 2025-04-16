@@ -25,6 +25,19 @@
 # .zshenv will live in $HOME
 # .zshrc goes into $ZDOTDIR
 
+# OS specific navigation
+case "$(uname -s)" in
+Darwin)
+	# MacOS
+	;;
+Linux)
+	bindkey '^R' history-incremental-search-backward
+	bindkey '^F' history-incremental-search-forward
+	;;
+*)
+	# Other OSes (e.g. FreeBSD, AIX, Solaris)
+	;;
+esac
 # OS specific Package Manager
 case "$(uname -s)" in
 Darwin)

@@ -201,11 +201,14 @@ augroup filetype_vim
 	autocmd FileType vim setlocal foldmethod=marker
 augroup END
 
+" If the current file type is YAML, set indentation to 2 spaces.
+autocmd Filetype yml setlocal tabstop=2 shiftwidth=2 expandtab
+
 " If the current file type is HTML, set indentation to 2 spaces.
 autocmd Filetype html setlocal tabstop=2 shiftwidth=2 expandtab
 
-" If the current file type is Haskell, set indentation to 4 spaces.
-autocmd Filetype ocaml setlocal tabstop=2 shiftwidth=2 expandtab
+" If the current file type is OCaml, set indentation to 4 spaces.
+autocmd Filetype ocaml setlocal tabstop=4 shiftwidth=4 expandtab
 
 " If the current file type is Haskell, set indentation to 4 spaces.
 autocmd Filetype haskell setlocal tabstop=4 shiftwidth=4 expandtab
