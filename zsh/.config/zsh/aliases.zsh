@@ -70,7 +70,7 @@ alias fgrep='fgrep --color=auto'
 # ls
 alias ls='ls --color=auto'
 alias l='ls -lh'
-alias ll='ls -lah'
+alias lla='ls -lah'
 alias la='ls -A'
 alias lr='ls -ltrahHF'
 

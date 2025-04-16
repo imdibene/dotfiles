@@ -68,6 +68,15 @@ source $ZDOTDIR/aliases.zsh
 # custom commands
 source $ZDOTDIR/custom-commands.zsh
 
+# add colour to the man pages via using bat as as man pager
+## guard for debian
+if command -v batcat &>/dev/null; then
+	BAT=batcat
+else
+	BAT=bat
+fi
+export MANPAGER="sh -c 'col -bx | $BAT --paging=always --plain --language=man'"
+
 # Load completions
 autoload -Uz compinit
 zstyle ':completion:*' menu select
