@@ -85,13 +85,13 @@ case "$(uname -s)" in
 Darwin)
 	# MacOS
 	alias pkmg='brew'		# Homebrew for MacOS as package manager
-	alias pkmgdg='pkmg update && pm upgrade'
+	alias pkmguu='pkmg update && pkmg upgrade'
 	;;
 Linux)
 	# Debian
 	#alias pkmg='sudo apt'	# APT
 	alias pkmg='sudo nala'	# nala apt wrapper
-	alias pkmgdg='pm update && pm upgrade -y'
+	alias pkmguu='pkmg update && pkmg upgrade -y'
 	alias bat='batcat'
 	;;
 *)
@@ -101,7 +101,7 @@ esac
 alias pkmgi='pkmg install'
 alias pkmgs='pkmg search'
 alias pkmgud='pkmg update'
-alias pkmgug='pkmg upgrade'
+alias pkmgug='pkmg upgrade -y'
 
 # docker
 alias dockls="docker container ls | awk 'NR > 1 {print \$NF}'"	# display names of running containers
