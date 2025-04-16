@@ -1,4 +1,5 @@
 *.zsh_history
+*.zprofile
 *.zcompdump
 *.zshrc-e
 *.zcompcache/

@@ -74,6 +74,13 @@ setopt HIST_IGNORE_SPACE	# Do not record an event starting with a space.
 setopt HIST_SAVE_NO_DUPS	# Do not write a duplicate event to the history file.
 setopt HIST_VERIFY		# Do not execute immediately upon history expansion.
 setopt appendhistory
+# enable per-command history search
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+# bind arrow keys to search backwards/forwards in history by current line prefix
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
 
 # aliases
 source $ZDOTDIR/aliases.zsh
@@ -182,7 +189,7 @@ esac
 
 # fzf
 source <(fzf --zsh)
- export FZF_DEFAULT_OPTS="--tmux 80% --style full \
+export FZF_DEFAULT_OPTS="--tmux 80% --style full \
 	--preview 'fzf-preview.sh {}' --bind 'focus:transform-header:file --brief {}'"
 export FZF_DEFAULT_COMMAND="fd --type f"
 
