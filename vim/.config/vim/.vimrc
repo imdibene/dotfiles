@@ -1,4 +1,10 @@
 " GENERAL ---------------------------------------------------------------- {{{
+"
+set runtimepath^=$XDG_CONFIG_HOME/vim
+
+" Colorscheme
+colorscheme desert
+
 " Disable compatibility with vi which can cause unexpected issues.
 set nocompatible
 
@@ -13,6 +19,9 @@ filetype indent on
 
 " Turn syntax highlighting on.
 syntax on
+
+" encoding
+set encoding=utf-8
 
 " Add numbers to the file.
 set number
@@ -66,7 +75,6 @@ set hlsearch
 " Set the commands to save in history default number is 20.
 set history=1000
 
-
 " Search down into subdirectories.
 " Provides tab-completion for all file related tasks.
 set path+=**
@@ -83,7 +91,6 @@ set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 " THINGS TO CONSIDER:
 " - :b lets you autocomplete any open buffer
 
-
 " Backspace over anything
 set backspace=indent,eol,start
 
@@ -93,6 +100,9 @@ highlight colorcolumn ctermbg=238
 
 " Enable mouse support
 set mouse+=a
+
+" fzf integration
+set rtp+=/opt/homebrew/opt/fzf
 
 " Highlight trailing whitespaces
 highlight TrailingWhitespace ctermbg=yellow guibg=yellow
@@ -138,6 +148,16 @@ noremap <Down>		<ESC>:echoe "Use 'j'"<CR>
 noremap <Up>		<ESC>:echoe "Use 'k'"<CR>
 noremap <Right>		<ESC>:echoe "Use 'l'"<CR>
 
+" Check file in shellcheck --> ,s
+map <leader>s :!clear && shellcheck -x %<CR>
+
+" Spell-check set to <leader>o --> ,o 'o' for 'orthography':
+map <leader>o :setlocal spell! spelllang=en_us<CR>
+
+" copy & paste vim <=> system
+noremap <c-y> "+y
+noremap <c-p> "+P
+
 " NERDTree specific mappings.
 " Map the F3 key to toggle NERDTree open and close.
 "nnoremap <F3> :NERDTreeToggle<cr>
@@ -159,30 +179,19 @@ noremap <Right>		<ESC>:echoe "Use 'l'"<CR>
 " - <CR>/v/t to open in an h-split/v-split/tab
 " - check |netrw-browse-maps| for more mappings
 
-" SNIPPETS:
+" SNIPPETS: TODO: setup the skeleton files, then activate the snippets mapping
 " Insert an empty <LANG> template into current workspace
-" Bourne Again Shell
-nnoremap <leader>bash :-1read $HOME/.config/vim/templates/skeleton.bash<CR>
-" C++
-nnoremap <leader>cpp :-1read $HOME/.config/vim/templates/skeleton.cpp<CR>
-" OCaml
-nnoremap <leader>hs :-1read $HOME/.config/vim/templates/skeleton.hs<CR>
-" Haskell
-nnoremap <leader>hs :-1read $HOME/.config/vim/templates/skeleton.hs<CR>
-" HTML
-nnoremap <leader>html :-1read $HOME/.config/vim/templates/skeleton.html<CR>
-" Markdown
-nnoremap <leader>md :-1read $HOME/.config/vim/templates/skeleton.md<CR>
-" Perl
-nnoremap <leader>pl :-1read $HOME/.config/vim/templates/skeleton.pl<CR>
-" Python
-nnoremap <leader>py :-1read $HOME/.config/vim/templates/skeleton.py<CR>
-" Racket
-nnoremap <leader>rkt :-1read $HOME/.config/vim/templates/skeleton.rkt<CR>
-" Rust
-nnoremap <leader>rs :-1read $HOME/.config/vim/templates/skeleton.rs<CR>
-" Shell
-nnoremap <leader>sh :-1read $HOME/.config/vim/templates/skeleton.sh<CR>
+nnoremap <leader>zz :-1read $HOME/.config/vim/templates/zettel.md<CR> " Zettel
+nnoremap <leader>cc :-1read $HOME/.config/vim/templates/class.cc<CR> " C++
+"nnoremap <leader>hs :-1read $HOME/.config/vim/templates/skeleton.hs<CR>	" Haskell
+"nnoremap <leader>ht :-1read $HOME/.config/vim/templates/skeleton.html<CR> " HTML
+"nnoremap <leader>md :-1read $HOME/.config/vim/templates/skeleton.md<CR> " Markdown
+"nnoremap <leader>ml :-1read $HOME/.config/vim/templates/skeleton.ml<CR>	" OCaml
+"nnoremap <leader>pl :-1read $HOME/.config/vim/templates/skeleton.pl<CR>	" Perl
+"nnoremap <leader>py :-1read $HOME/.config/vim/templates/skeleton.py<CR>	" Python
+"nnoremap <leader>rk :-1read $HOME/.config/vim/templates/skeleton.rkt<CR> " Racket
+"nnoremap <leader>rs :-1read $HOME/.config/vim/templates/skeleton.rs<CR>	" Rust
+"nnoremap <leader>sh :-1read $HOME/.config/vim/templates/skeleton.sh<CR>	" Shell
 
 " NOW WE CAN:
 " - Take over the world!
@@ -234,8 +243,38 @@ command! MakeTags !ctags -R .
 " THINGS TO CONSIDER:
 " - This doesn't help if you want a visual list of tags
 
-" Remove trailing whitespace when file saving
-autocmd BufWritePre * :%s/\s\+$//e
+" Remove trailing whitespace and newlines when file saving (except for binary
+" files ended in .bi)
+autocmd BufWritePre * if expand('<afile>') !~ '\.bi$' | :%s/\s\+$//e
+autocmd BufWritePre * if expand('<afile>') !~ '\.bi$' | :%s/\n\+\%$//e
+"autocmd BufWritePre *.[ch] :%s/\%$/\r/e " add trailing newline for ANSI C standard
+
+" Create a jump stack for better navigation
+let g:jump_stack = []
+
+function! PushJump()
+  let g:jump_stack = get(g:jump_stack, 'jump_stack', [])
+  call add(g:jump_stack, [bufnr('%'), line('.'), col('.')])
+  " Keep only last 100 jumps
+  if len(g:jump_stack) > 100
+    call remove(g:jump_stack, 0)
+  endif
+endfunction
+
+function! PopJump()
+  if len(g:jump_stack) > 0
+    let [buf, line, col] = remove(g:jump_stack, -1)
+    execute 'buffer ' . buf
+    call cursor(line, col)
+  else
+    echo "Jump stack empty"
+  endif
+endfunction
+
+" Hook into gf
+nnoremap <silent> gf :call PushJump()<CR>gf
+nnoremap <silent> gb :call PopJump()<CR>
+
 
 " AUTOCOMPLETE:
 " The good stuff is documented in |ins-completion|

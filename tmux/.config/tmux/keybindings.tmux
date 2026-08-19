@@ -19,6 +19,8 @@ display "$TMUX_CONF reloaded!"
 
 # keep current path when creating a new window
 bind c new-window -c "#{pane_current_path}"
+# popup an floating terminal window
+bind T display-popup -w 65% -h 65% -E -d "#{pane_current_path}"
 
 # go to a marked pane <C-b>+m to mark it first
 bind \` switch-client -t'{marked}'
@@ -27,7 +29,7 @@ bind \` switch-client -t'{marked}'
 bind-key M-s set-window-option synchronize-panes\; \
 display-message "This Window\'s panes are now sync [#{?pane_synchronized,on,of}]"
 
-# switch panes using <Meta(alt)>-arrow without prefix <C-b>
+# switch panes using <Meta(alt/option)>-arrow without prefix <C-b>
 bind -n M-Left select-pane -L
 bind -n M-Down select-pane -D
 bind -n M-Up select-pane -U
@@ -40,4 +42,3 @@ bind m \
 bind M \
 	set -g mouse off \; \
 	display 'mouse mode: OFF'
-

@@ -82,6 +82,10 @@ zle -N down-line-or-beginning-search
 bindkey '^[[A' up-line-or-beginning-search
 bindkey '^[[B' down-line-or-beginning-search
 
+# Load local configuration, this file is not tracked in git, it may contain
+# sensible info
+source $ZDOTDIR/local-config.zsh
+
 # aliases
 source $ZDOTDIR/aliases.zsh
 
@@ -105,6 +109,7 @@ compinit
 _comp_options+=(globdots)	# include hidden files
 
 # prompt
+autoload -U colors && colors # load colors
 autoload -Uz compinit && compinit
 autoload -Uz vcs_info
 precmd() { vcs_info }

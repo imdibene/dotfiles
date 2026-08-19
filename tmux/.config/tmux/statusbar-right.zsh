@@ -69,7 +69,7 @@ function load_avg() {
 }
 
 function date_time() {
-	printf "%s " "$(date +'%a %Y-%h-%d J:%j W:%U %H:%M')" }
+	printf "%s " "$(date +'%a %Y-%h-%d J:%j KW:%V %H:%M')" }
 
 function main() {
 	battery_meter
