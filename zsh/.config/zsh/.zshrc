@@ -101,10 +101,10 @@ else
 fi
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # MacOS
-    export MANPAGER="sh -c 'col -bx | $BAT --paging=always --language=man'"
+    export MANPAGER="sh -c 'col -bx | $BAT --paging=always --plain --language=man'"
 else
     # Linux
-    export MANPAGER="sh -c '$BAT --paging=always --language=man'"
+    export MANPAGER="sh -c '$BAT --paging=always --plain --language=man'"
 fi
 
 # Load completions
