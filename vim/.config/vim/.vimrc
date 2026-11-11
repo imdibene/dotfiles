@@ -234,8 +234,10 @@ if version >= 703
 endif
 
 " TAG JUMPING:
+set tags=./tags;,tags;
+
 " Create the `tags` file (may need to install ctags first)
-command! MakeTags !ctags -R .
+command! MakeTags !ctags -R --exclude=.git .
 " NOW WE CAN:
 " - Use ^] to jump to tag under cursor
 " - Use g^] for ambiguous tags
@@ -246,14 +248,13 @@ command! MakeTags !ctags -R .
 " Remove trailing whitespace and newlines when file saving (except for binary
 " files ended in .bi)
 autocmd BufWritePre * if expand('<afile>') !~ '\.bi$' | :%s/\s\+$//e
-autocmd BufWritePre * if expand('<afile>') !~ '\.bi$' | :%s/\n\+\%$//e
+"autocmd BufWritePre * if expand('<afile>') !~ '\.bi$' | :%s/\n\+\%$//e
 "autocmd BufWritePre *.[ch] :%s/\%$/\r/e " add trailing newline for ANSI C standard
 
 " Create a jump stack for better navigation
 let g:jump_stack = []
 
 function! PushJump()
-  let g:jump_stack = get(g:jump_stack, 'jump_stack', [])
   call add(g:jump_stack, [bufnr('%'), line('.'), col('.')])
   " Keep only last 100 jumps
   if len(g:jump_stack) > 100

@@ -99,7 +99,13 @@ if command -v batcat &>/dev/null; then
 else
 	BAT=bat
 fi
-export MANPAGER="sh -c 'col -bx | $BAT --paging=always --plain --language=man'"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # MacOS
+    export MANPAGER="sh -c 'col -bx | $BAT --paging=always --language=man'"
+else
+    # Linux
+    export MANPAGER="sh -c '$BAT --paging=always --language=man'"
+fi
 
 # Load completions
 autoload -Uz compinit
@@ -221,3 +227,6 @@ eval "$(zoxide init zsh)"
 source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 
 [ -f "/Users/imdibene/.ghcup/env" ] && . "/Users/imdibene/.ghcup/env" # ghcup-env
+
+# brew Perl
+eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
