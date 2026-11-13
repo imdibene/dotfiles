@@ -1,4 +1,7 @@
+**/local-config.zsh
+*.netrwhist
 *.zsh_history
+*.zhistory
 *.zprofile
 *.zcompdump
 *.zshrc-e

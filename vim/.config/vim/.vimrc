@@ -84,7 +84,7 @@ set wildmenu
 set wildmode=list:longest
 " There are certain files that we would never want to edit with Vim.
 " Wildmenu will ignore files with these extensions.
-set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*.bi
 " NOW WE CAN:
 " - Hit tab to :find by partial match
 " - Use * to make it fuzzy
@@ -181,17 +181,55 @@ noremap <c-p> "+P
 
 " SNIPPETS: TODO: setup the skeleton files, then activate the snippets mapping
 " Insert an empty <LANG> template into current workspace
-nnoremap <leader>zz :-1read $HOME/.config/vim/templates/zettel.md<CR> " Zettel
-nnoremap <leader>cc :-1read $HOME/.config/vim/templates/class.cc<CR> " C++
-"nnoremap <leader>hs :-1read $HOME/.config/vim/templates/skeleton.hs<CR>	" Haskell
-"nnoremap <leader>ht :-1read $HOME/.config/vim/templates/skeleton.html<CR> " HTML
+
+" ==============================================================================
+" ==============================================================================
+" TEMPLATES
+" ==============================================================================
+" ==============================================================================
+
+" ==============================================================================
+" Markdown
+" ==============================================================================
 "nnoremap <leader>md :-1read $HOME/.config/vim/templates/skeleton.md<CR> " Markdown
-"nnoremap <leader>ml :-1read $HOME/.config/vim/templates/skeleton.ml<CR>	" OCaml
-"nnoremap <leader>pl :-1read $HOME/.config/vim/templates/skeleton.pl<CR>	" Perl
-"nnoremap <leader>py :-1read $HOME/.config/vim/templates/skeleton.py<CR>	" Python
-"nnoremap <leader>rk :-1read $HOME/.config/vim/templates/skeleton.rkt<CR> " Racket
-"nnoremap <leader>rs :-1read $HOME/.config/vim/templates/skeleton.rs<CR>	" Rust
-"nnoremap <leader>sh :-1read $HOME/.config/vim/templates/skeleton.sh<CR>	" Shell
+"nnoremap <leader>mdr :-1read $HOME/.config/vim/templates/README.md<CR> " README
+"nnoremap <leader>mdz :-1read $HOME/.config/vim/templates/zettel.md<CR> " Zettel
+
+" ==============================================================================
+" Shell
+" ==============================================================================
+nnoremap <leader>sh :-1read $HOME/.config/vim/templates/skeleton.sh<CR>
+
+" ==============================================================================
+" C++
+" ==============================================================================
+" For business logic classes that delegate resource ownership to standard RAII types
+nnoremap <leader>c0 :-1read $HOME/.config/vim/templates/rule-of-0.cc<CR>
+" For classes implementing custom resource ownership (e.g. POSIX fd, Sockets, or custom handles)
+nnoremap <leader>c5 :-1read $HOME/.config/vim/templates/rule-of-5.cc<CR>
+" For classes with complex internals, public APIs, ABI considerations or expensive dependencies
+nnoremap <leader>cph :-1read $HOME/.config/vim/templates/pimpl.hh<CR>
+nnoremap <leader>cpc :-1read $HOME/.config/vim/templates/pimpl.cc<CR>
+
+" ==============================================================================
+" Haskell
+" ==============================================================================
+"nnoremap <leader>hs :-1read $HOME/.config/vim/templates/skeleton.hs<CR>
+
+" ==============================================================================
+" OCaml
+" ==============================================================================
+"nnoremap <leader>ml :-1read $HOME/.config/vim/templates/skeleton.ml<CR>
+
+" ==============================================================================
+" Perl
+" ==============================================================================
+"nnoremap <leader>pl :-1read $HOME/.config/vim/templates/skeleton.pl<CR>
+
+" ==============================================================================
+" Python
+" ==============================================================================
+"nnoremap <leader>py :-1read $HOME/.config/vim/templates/skeleton.py<CR>
 
 " NOW WE CAN:
 " - Take over the world!
